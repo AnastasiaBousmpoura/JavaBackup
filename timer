@@ -1,0 +1,51 @@
+package org.example;
+
+import gr.hua.dit.oop2.countdown.Countdown;
+import gr.hua.dit.oop2.countdown.CountdownFactory;
+import gr.hua.dit.oop2.countdown.Notifier;
+
+import javax.swing.*;
+import java.text.DecimalFormat;
+import java.util.TimerTask;
+
+
+public class Timer {
+    private long seconds;
+
+    public  Timer(){
+        this.seconds=seconds;
+    }
+
+    public void FixTimer(){
+        Countdown countdown = CountdownFactory.countdown("FixTimer", seconds);
+        Timer timer = new Timer();
+        DecimalFormat decimalformat= new DecimalFormat("00");
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                int timeleft = (int) countdown.secondsRemaining() ;
+                int minutes = (int) timeleft / 60;
+                int seconds = (int) timeleft % 60;
+
+                String sec, min, time;
+                sec = decimalformat.format(seconds);
+                min = decimalformat.format(minutes);
+                time = min + ";" + sec ;
+
+
+
+                if (seconds == 0 && minutes == 0){
+                    System.out.println("Task Finished");
+                    //timer.cancel();//
+                    countdown.stop();
+                }
+
+            }
+        };
+        countdown.start();
+
+
+    }
+
+}
